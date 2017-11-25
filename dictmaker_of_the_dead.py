@@ -46,7 +46,11 @@ def char_bio(name):
             print("{}:".format(x+1))
             print(hits[x])
             print()
-            
+
+def get_pawns():
+    pawns = [(char, len(char_dict[char])) for char in char_dict if len(char_dict[char]) < 20]
+    return pawns
+
 def main():
     trans_dict = load_translations()
     char_dict = load_char_dict(trans_dict)
@@ -54,5 +58,3 @@ def main():
     while command != "exit":
         char_bio(command)
         command = input("Who do you want to see?")
-
-main()
