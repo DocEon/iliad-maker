@@ -8,6 +8,9 @@ Created on Sun Nov 26 00:24:44 2017
 import nltk
 import re
 
+# This is a much cheatier way to get to what I want than the dictmaker. 
+# If I start with Kline's deaths, I can generate new deaths based on his. There's enough here for a start.
+# And if I want to expand to other translations, I should be able to find correspondances.
 translations = ["kline"]
 char_dict = {}
 
@@ -26,11 +29,13 @@ kline_index_raw = kline_index.read()
 kline_index_list = kline_index_raw.split("\n \n\n")
 death_list = [hero for hero in kline_index_list if "Killed by" in hero or "killed by" in hero]
 
+hero_list = [line.split("\n") for line in death_list]
+
 death_dict = {}
 uncaught = []
 for hero in death_list:
     ## this regex needs work. It catches just over half of death_list.
-    ## alternatively, split each index into a list demarcated by newlines, and extract the info that way
+    ## alternatively, split each index into a list demarcated by newlines, and extract the info that way - that's the smart way to do this.
     
     hero_r = re.split('([A-zöë]*).*\\n\\n([A-z ,’]*).*\\n.*(Bk.*) [Kk]illed by ([A-zöë]*).\\n', hero)
     if len(hero_r) == 6:
